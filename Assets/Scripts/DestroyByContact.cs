@@ -21,7 +21,6 @@ public class DestroyByContact : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Something has collided
-        // Add new code here!
 
         // Create an explosion
         Instantiate(explosion, transform.position, transform.rotation);
