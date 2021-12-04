@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -15,9 +16,19 @@ public class GameController : MonoBehaviour
     public float spawnWait; // How long between each hazard in a wave?
     public float waveWait; // How long between each wave of hazards?
 
+    [Header("UI Objects")]
+    public Text scoreText;
+    public GameObject gameOverTextObj;
+    public GameObject restartTextObj;
+
+    private int score = 0;
+    private bool gameover = false;
+    private bool restart = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        UpdateScoreText();
         StartCoroutine(SpawnWaves());
     }
 
@@ -49,7 +60,34 @@ public class GameController : MonoBehaviour
 
             // Wait. Spawn the next wave
             yield return new WaitForSeconds(waveWait);
+
+            // Check to see if the game is over
+            if (gameover)
+            {
+                restart = true;
+                restartTextObj.SetActive(true);
+                break;
+            }
         }
 
+    }
+
+    public void AddToScore(int scoreValueToAdd)
+    {
+        score += scoreValueToAdd;
+        // Debug.Log($"Score: {score}");
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        scoreText.text = $"Score: {score}";
+    }
+
+    public void GameOver()
+    {
+        // What happens when my game is over?
+        gameover = true;
+        gameOverTextObj.SetActive(true);
     }
 }
