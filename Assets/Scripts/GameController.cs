@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -35,7 +36,18 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Check if we need to restart
+        if (restart)
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                // Restart our game
+                // The Old way. Don't use this.
+                // Application.LoadLevel
+                // The new way. Use this!
+                SceneManager.LoadScene("Level 1");
+            }
+        }
     }
 
     // Coroutine to spawn waves of hazards (A function that occurs away from the game)
