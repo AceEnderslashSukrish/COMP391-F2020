@@ -18,8 +18,8 @@ public class PlayerController : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
     }
 
-    //Used for physics
-    void FixedUpdate()
+    //Used for physics operations
+    void FixedUpdate() // Keeps the time.deltatime to be exactly the same
     {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("H: "+ horiz + " V: "+ vert);
 
         Vector2 newVelocity = new Vector2(horiz, vert);
-        GetComponent<Rigidbody2D>().velocity = newVelocity * speed;
+        rBody.velocity = newVelocity * speed;
 
         // Restrict the player from leaving the play area
         float newX, newY;
@@ -41,16 +41,8 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update() // time.deltatime is slightly inconsistent, used for non-physics code
     {
-        //float horiz = Input.GetAxis("Horizontal");
-        //float vert = Input.GetAxis("Vertical");
-
-        //// Debug.Log("H: "+ horiz + " V: "+ vert);
-
-        //Vector2 newVelocity = new Vector2(horiz, vert);
-        //GetComponent<Rigidbody2D>().velocity = newVelocity * speed;
-
         // Add laser fire code
         // Check if the "fire1" button is pressed
         if(Input.GetAxis("Fire1") > 0 && timer > fireRate)
@@ -65,10 +57,6 @@ public class PlayerController : MonoBehaviour
             timer = 0;
         }
 
-        timer += Time.deltaTime; // time before the next frame is called
-        
-        
-        
-        
+        timer += Time.deltaTime; // time before the next frame is called       
     }
 }
