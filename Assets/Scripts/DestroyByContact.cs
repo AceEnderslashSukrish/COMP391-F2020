@@ -21,6 +21,11 @@ public class DestroyByContact : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Something has collided
+        if (other.gameObject.CompareTag("player"))
+        {
+            // Collided with player
+            Instantiate(explosion, other.transform.position, other.transform.rotation);
+        }
 
         // Create an explosion
         Instantiate(explosion, transform.position, transform.rotation);
